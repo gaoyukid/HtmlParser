@@ -52,7 +52,8 @@ public class SampleController {
 	public String htmlParser(HttpServletRequest request, HttpServletResponse response) {
 		String result = "{}";
 		String url = request.getParameter("url");
-		result = this.htmlParserService.readPage(url);
+		String format = request.getParameter("format");
+		result = this.htmlParserService.readPageInFormat(url, format);
 		response.setContentType("application/json; charset=UTF-8");
 		return result;
 	}

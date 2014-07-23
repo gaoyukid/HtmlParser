@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import springjetty.HtmlParser.jetty.entity.ReadResult;
+import springjetty.HtmlParser.jetty.util.ResultFormat;
 
 import com.basistech.readability.HttpPageReader;
 import com.basistech.readability.PageReadException;
@@ -34,15 +35,32 @@ public class HtmlParserService{
         gson = new Gson();
 	}
 	
-	public String readPage(String url)
+	public String readPageInFormat(String url, String format)
 	{
 		String result = "{}";
+		ReadResult readResult = readPage(url);
+		if(ResultFormat.JSON.equals(format))
+		{
+			result = gson.toJson(readResult);
+		} else if(ResultFormat.TITLE.equals(format)) {
+			result = readResult.getTitle();
+		} else if(ResultFormat.TEXT.equals(format)) {
+			result = readResult.getContent();
+		} else {
+			// default is to get content
+			result = readResult.getContent();
+		}
+		return result;
+	}
+	
+	public ReadResult readPage(String url)
+	{
+		ReadResult readResult = new ReadResult();
 		try {
 			readability.processDocument(url);
 			
 			String title = readability.getTitle();
 			String content = readability.getArticleText();
-			
 			if(LOG.isDebugEnabled())
 			{
 				LOG.debug("----- title ------");
@@ -50,27 +68,15 @@ public class HtmlParserService{
 				LOG.debug("----- content ------");
 				LOG.debug(content);
 			}
-			ReadResult readResult = new ReadResult();
+			
 			readResult.setContent(content);
 			readResult.setTitle(title);
-//			StringBuffer sb = new StringBuffer();
-//			
-//			sb.append("<!DOCTYPE html><html>");
-//			sb.append("<head><title>");
-//			sb.append(title);
-//			sb.append("</title><meta http-equiv=\"Content-Type\" "
-//					+ "content=\"text/html; charset=UTF-8\" />");
-//			sb.append("<body>");
-//			sb.append(content);
-//			sb.append("</body>");
-//			sb.append("</html>");
 			
-			result = gson.toJson(readResult);
 		} catch (PageReadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return result;
+		return readResult;
 	}
 }
