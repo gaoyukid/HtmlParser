@@ -9,8 +9,9 @@
 	</parent>
 	<artifactId>HtmlParser</artifactId>
 	<groupId>springjetty</groupId>
-	<name>Spring Boot Jetty Sample</name>
-	<description>Spring Boot Jetty Sample</description>
+	<name>Html Parser as Service</name>
+	
+	<description>A jetty service that reads html</description>
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://projects.spring.io/spring-boot/</url>
 	<organization>
@@ -50,6 +51,10 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<defaultGoal>install</defaultGoal>
+		<directory>${basedir}/target</directory>
+		<finalName>${artifactId}-${version}</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
