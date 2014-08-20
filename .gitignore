@@ -1,3 +1,11 @@
 *.class
 target/
 *.class
+
+*.class
+
+target/classes/springjetty/HtmlParser/jetty/service/HelloWorldService.class
+
+target/classes/springjetty/HtmlParser/jetty/service/HtmlParserService.class
+
+target/classes/springjetty/HtmlParser/jetty/web/SampleController.class
