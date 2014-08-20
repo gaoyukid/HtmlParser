@@ -1,10 +1,16 @@
 package springjetty.HtmlParser.jetty.service;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import springjetty.HtmlParser.jetty.entity.ReadResult;
+import springjetty.HtmlParser.jetty.util.FreeMarkerUtil;
 import springjetty.HtmlParser.jetty.util.ResultFormat;
 
 import com.basistech.readability.HttpPageReader;
@@ -23,6 +29,9 @@ public class HtmlParserService{
 	
 	private PageReader pageReader;
 	
+	@Autowired
+	private FreeMarkerUtil freeMarkerUtil;
+	
 	private Gson gson;
 	
 	public HtmlParserService()
@@ -35,6 +44,18 @@ public class HtmlParserService{
         gson = new Gson();
 	}
 	
+	public void writeFullHtml(String url, HttpServletResponse response)
+	{
+		ReadResult readResult = readPage(url);
+		response.setContentType("text/html; charset=UTF-8");
+		try {
+			freeMarkerUtil.generateFullHtml(readResult, response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String readPageInFormat(String url, String format)
 	{
 		String result = "{}";
@@ -45,6 +66,10 @@ public class HtmlParserService{
 		} else if(ResultFormat.TITLE.equals(format)) {
 			result = readResult.getTitle();
 		} else if(ResultFormat.TEXT.equals(format)) {
+			result = readResult.getContent();
+		} else if(ResultFormat.HTML.equals(format)) {
+			StringBuffer sb = new StringBuffer();
+			
 			result = readResult.getContent();
 		} else {
 			// default is to get content

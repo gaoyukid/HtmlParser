@@ -15,3 +15,5 @@ localhost:8080/html?url=http://www.nba.com&format=title
 localhost:8080/html?url=http://www.nba.com&format=text
 localhost:8080/html?url=http://www.nba.com&format=json
 
+* full html with template *
+http://localhost:8080/fullhtml?url=http://www.gdzbtb.gov.cn/zbhxrgsbd/201405/t20140512_245116.htm

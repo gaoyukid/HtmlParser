@@ -1,7 +1,7 @@
 package springjetty.HtmlParser.jetty.util;
 
 public enum ResultFormat {
-	TEXT("text"), JSON("json"), TITLE("title");
+	TEXT("text"), JSON("json"), TITLE("title"), HTML("html");
 	
 	private String name;
 	private ResultFormat(String name)

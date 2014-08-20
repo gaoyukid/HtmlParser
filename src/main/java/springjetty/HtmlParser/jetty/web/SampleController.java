@@ -16,19 +16,18 @@
 
 package springjetty.HtmlParser.jetty.web;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import springjetty.HtmlParser.jetty.service.HelloWorldService;
 import springjetty.HtmlParser.jetty.service.HtmlParserService;
-
-import com.basistech.readability.PageReadException;
 
 @Controller
 @RequestMapping("/")
@@ -47,6 +46,19 @@ public class SampleController {
 		return this.helloWorldService.getHelloMessage();
 	}
 	
+	@RequestMapping("/htdocs/css/biaoxin.css")
+	@ResponseBody
+	public String getBiaoXinCss(HttpServletRequest request, HttpServletResponse response) {
+		return helloWorldService.getCssFileCache();
+	}
+	
+	@RequestMapping("/htdocs/img/logo.icon")
+	@ResponseBody
+	public String getLogoIcon(HttpServletRequest request, HttpServletResponse response) {
+		return helloWorldService.getCssFileCache();
+	}
+	
+	
 	@RequestMapping("/html")
 	@ResponseBody
 	public String htmlParser(HttpServletRequest request, HttpServletResponse response) {
@@ -56,5 +68,15 @@ public class SampleController {
 		result = this.htmlParserService.readPageInFormat(url, format);
 		response.setContentType("application/json; charset=UTF-8");
 		return result;
+	}
+	
+	@RequestMapping("/fullhtml")
+	@ResponseBody
+	public void getFullHtml(HttpServletRequest request, HttpServletResponse response) {
+//		String result = "{}";
+		String url = request.getParameter("url");
+		htmlParserService.writeFullHtml(url, response);
+		
+//		return result;
 	}
 }

@@ -16,17 +16,57 @@
 
 package springjetty.HtmlParser.jetty.service;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HelloWorldService {
-
+	String cssFileCache;
+	public HelloWorldService()
+	{
+		initCache();
+	}
+	
+	private void initCache()
+	{
+		StringBuffer sb = new StringBuffer();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("biaoxin.css"));
+			String line;
+			while((line = br.readLine()) != null)
+			{
+				sb.append(line);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cssFileCache = sb.toString();
+		
+	}
+	
 	@Value("${name:World}")
 	private String name;
 
 	public String getHelloMessage() {
 		return "Hello " + name;
 	}
-
+	
+	public String getCssFileCache()
+	{
+		if(cssFileCache == null || cssFileCache.length() < 1)
+		{
+			this.initCache();
+		}
+		return cssFileCache;
+	}
+	
 }
