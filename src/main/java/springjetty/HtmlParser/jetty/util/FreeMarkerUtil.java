@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -26,8 +27,10 @@ public class FreeMarkerUtil {
     public FreeMarkerUtil() {
         freeMarkerCfg.setClassForTemplateLoading(getClass(),"");
         freeMarkerCfg.setObjectWrapper(new DefaultObjectWrapper());
+        freeMarkerCfg.setDefaultEncoding("UTF-8");
         try {
             template = freeMarkerCfg.getTemplate("FullHtml.ftl");
+            template.setEncoding("UTF-8");
         } catch (IOException e) {
             // TODO
             e.printStackTrace();

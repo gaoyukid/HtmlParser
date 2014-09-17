@@ -16,18 +16,21 @@
 
 package springjetty.HtmlParser.jetty;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class SampleJettyApplication {
+public class MyJettyApplication {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(SampleJettyApplication.class, args);
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("resources/conf/applicationContext.xml");
+		
+//		SpringApplication.run(MyJettyApplication.class, args);
 	}
 
 }

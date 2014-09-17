@@ -16,8 +16,6 @@
 
 package springjetty.HtmlParser.jetty.web;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,32 +29,37 @@ import springjetty.HtmlParser.jetty.service.HtmlParserService;
 
 @Controller
 @RequestMapping("/")
-public class SampleController {
+public class MyController {
 
+	public MyController()
+	{
+		String name = "abc";
+		name.toCharArray();
+	}
+	
 	@Autowired
 	private HelloWorldService helloWorldService;
 
 	@Autowired
 	private HtmlParserService htmlParserService;
 
-	
 	@RequestMapping("/hello")
 	@ResponseBody
 	public String helloWorld() {
 		return this.helloWorldService.getHelloMessage();
 	}
 	
-	@RequestMapping("/htdocs/css/biaoxin.css")
-	@ResponseBody
-	public String getBiaoXinCss(HttpServletRequest request, HttpServletResponse response) {
-		return helloWorldService.getCssFileCache();
-	}
+//	@RequestMapping("/htdocs/css/biaoxin.css")
+//	@ResponseBody
+//	public String getBiaoXinCss(HttpServletRequest request, HttpServletResponse response) {
+//		return helloWorldService.getCssFileCache();
+//	}
 	
-	@RequestMapping("/htdocs/img/logo.icon")
-	@ResponseBody
-	public String getLogoIcon(HttpServletRequest request, HttpServletResponse response) {
-		return helloWorldService.getCssFileCache();
-	}
+//	@RequestMapping("/htdocs/img/logo.icon")
+//	@ResponseBody
+//	public String getLogoIcon(HttpServletRequest request, HttpServletResponse response) {
+//		return helloWorldService.getCssFileCache();
+//	}
 	
 	
 	@RequestMapping("/html")
