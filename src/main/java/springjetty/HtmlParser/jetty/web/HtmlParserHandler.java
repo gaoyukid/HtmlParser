@@ -16,6 +16,7 @@ public class HtmlParserHandler extends AbstractHandler {
 	
 	@Autowired
 	private HtmlParserService htmlParserService;
+	
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		if (baseRequest.isHandled())

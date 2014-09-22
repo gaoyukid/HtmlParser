@@ -41,6 +41,7 @@ public class HtmlParserService{
 		readability = new Readability();
         readability.setPageReader(pageReader);
         readability.setReadAllPages(false);
+        readability.setCleanHtmlTags(false);
         gson = new Gson();
 	}
 	
@@ -68,8 +69,6 @@ public class HtmlParserService{
 		} else if(ResultFormat.TEXT.equals(format)) {
 			result = readResult.getContent();
 		} else if(ResultFormat.HTML.equals(format)) {
-			StringBuffer sb = new StringBuffer();
-			
 			result = readResult.getContent();
 		} else {
 			// default is to get content

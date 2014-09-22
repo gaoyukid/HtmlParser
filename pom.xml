@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.basistech</groupId>
 			<artifactId>java-readability</artifactId>
-			<version>1-SNAPSHOT</version>
+			<version>trunk</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
