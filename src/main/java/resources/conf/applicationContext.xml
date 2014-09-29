@@ -30,7 +30,7 @@
 					<list>
 						<bean class="org.eclipse.jetty.server.handler.ResourceHandler">
 <!-- 							<property name="contextPath" value="/htdocs" /> -->
-							<property name="resourceBase" value="/Users/yug/Documents/procurement/template" />
+							<property name="resourceBase" value="${web.document}" />
 							<property name="welcomeFiles" value="index.html" />
 						</bean>
 						<bean class="springjetty.HtmlParser.jetty.web.HtmlParserHandler" >
