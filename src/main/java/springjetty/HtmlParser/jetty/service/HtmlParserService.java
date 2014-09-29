@@ -13,22 +13,19 @@ import springjetty.HtmlParser.jetty.entity.ReadResult;
 import springjetty.HtmlParser.jetty.util.FreeMarkerUtil;
 import springjetty.HtmlParser.jetty.util.ResultFormat;
 
-import com.basistech.readability.HttpPageReader;
-import com.basistech.readability.PageReadException;
-import com.basistech.readability.PageReader;
-import com.basistech.readability.Readability;
-import com.basistech.readability.TikaCharsetDetector;
 import com.google.gson.Gson;
+import com.sree.textbytes.network.HtmlFetcher;
+import com.sree.textbytes.readabilityBUNDLE.Article;
+import com.sree.textbytes.readabilityBUNDLE.ContentExtractor;
 
 @Component
 public class HtmlParserService{
 	//the logger
     private static final Logger LOG = LoggerFactory.getLogger(HtmlParserService.class); 
     
-	private Readability readability;
-	
-	private PageReader pageReader;
-	
+    @Autowired
+    private ContentExtractor contentExtractor;
+    
 	@Autowired
 	private FreeMarkerUtil freeMarkerUtil;
 	
@@ -36,13 +33,13 @@ public class HtmlParserService{
 	
 	public HtmlParserService()
 	{
-		pageReader = new HttpPageReader();
-		pageReader.setCharsetDetector(new TikaCharsetDetector());
-		readability = new Readability();
-        readability.setPageReader(pageReader);
-        readability.setReadAllPages(false);
-        readability.setCleanHtmlTags(false);
-        gson = new Gson();
+//		pageReader = new HttpPageReader();
+//		pageReader.setCharsetDetector(new TikaCharsetDetector());
+//		readability = new Readability();
+//        readability.setPageReader(pageReader);
+//        readability.setReadAllPages(false);
+//        readability.setCleanHtmlTags(false);
+//        gson = new Gson();
 	}
 	
 	public void writeFullHtml(String url, HttpServletResponse response)
@@ -81,10 +78,15 @@ public class HtmlParserService{
 	{
 		ReadResult readResult = new ReadResult();
 		try {
-			readability.processDocument(url);
 			
-			String title = readability.getTitle();
-			String content = readability.getArticleText();
+			Article article = new Article();
+			HtmlFetcher htmlFetcher = new HtmlFetcher();
+			String html = htmlFetcher.getHtml(url, 0);
+
+			article = contentExtractor.extractContent(html, "ReadabilitySnack");
+			
+			String title = article.getTitle();
+			String content = article.getCleanedArticleText();
 			if(LOG.isDebugEnabled())
 			{
 				LOG.debug("----- title ------");
@@ -96,7 +98,7 @@ public class HtmlParserService{
 			readResult.setContent(content);
 			readResult.setTitle(title);
 			
-		} catch (PageReadException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
