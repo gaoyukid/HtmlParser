@@ -9,3 +9,5 @@ target/classes/springjetty/HtmlParser/jetty/service/HelloWorldService.class
 target/classes/springjetty/HtmlParser/jetty/service/HtmlParserService.class
 
 target/classes/springjetty/HtmlParser/jetty/web/SampleController.class
+
+target/test-classes/springjetty/HtmlParser/jetty/SampleJettyApplicationTests.class
