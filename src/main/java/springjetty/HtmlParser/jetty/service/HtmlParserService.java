@@ -83,7 +83,7 @@ public class HtmlParserService{
 			HtmlFetcher htmlFetcher = new HtmlFetcher();
 			String html = htmlFetcher.getHtml(url, 0);
 
-			article = contentExtractor.extractContent(html, "ReadabilitySnack");
+			article = contentExtractor.extractContent(html, "ReadabilityCommaLength");
 			
 			String title = article.getTitle();
 			String content = article.getCleanedArticleText();

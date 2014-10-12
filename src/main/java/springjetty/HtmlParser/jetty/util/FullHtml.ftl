@@ -45,7 +45,7 @@
       </div>
       <div class="page-bizinfo">
          <div class="header">
-            <h1 id="activity-name">标题</h1>
+            <h1 id="activity-name">${readResult.title}</h1>
          </div>
       </div>
       <div id="page-content" class="page-content">
