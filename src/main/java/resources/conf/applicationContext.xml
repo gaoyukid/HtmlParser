@@ -47,11 +47,16 @@
 	<context:component-scan base-package="springjetty.HtmlParser.jetty" />
 	<bean id="contentExtractor" class="com.sree.textbytes.readabilityBUNDLE.ContentExtractor" />
 	<bean id="htmlParserService" class="springjetty.HtmlParser.jetty.service.HtmlParserService" />
+	<bean id="pageReader" class="springjetty.HtmlParser.jetty.dao.HttpPageReader" >
+		<property name="charsetDetector" ref="charsetDetector"></property>
+	</bean>
+	<bean id="charsetDetector" class="springjetty.HtmlParser.jetty.dao.TikaCharsetDetector" />
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/htdoc/css/" />
 		<property name="suffix" value=".css" />
 	</bean>
+	
 	<!-- <mvc:resources mapping="/static/**" location="/static/" /> -->
 </beans>

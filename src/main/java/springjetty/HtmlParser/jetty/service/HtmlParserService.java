@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import springjetty.HtmlParser.jetty.dao.PageReader;
 import springjetty.HtmlParser.jetty.entity.ReadResult;
 import springjetty.HtmlParser.jetty.util.FreeMarkerUtil;
 import springjetty.HtmlParser.jetty.util.ResultFormat;
@@ -28,6 +29,9 @@ public class HtmlParserService{
     
 	@Autowired
 	private FreeMarkerUtil freeMarkerUtil;
+	
+	@Autowired
+	private PageReader pageReader;
 	
 	private Gson gson;
 	
@@ -80,8 +84,9 @@ public class HtmlParserService{
 		try {
 			
 			Article article = new Article();
-			HtmlFetcher htmlFetcher = new HtmlFetcher();
-			String html = htmlFetcher.getHtml(url, 0);
+			String html = pageReader.readPage(url);
+//			HtmlFetcher htmlFetcher = new HtmlFetcher();
+//			String html = htmlFetcher.getHtml(url, 0);
 
 			article = contentExtractor.extractContent(html, "ReadabilityCommaLength");
 			

@@ -13,3 +13,9 @@ target/classes/springjetty/HtmlParser/jetty/web/SampleController.class
 target/test-classes/springjetty/HtmlParser/jetty/SampleJettyApplicationTests.class
 
 *.class
+
+*.class
+
+*.class
+
+target/test-classes/springjetty/HtmlParser/jetty/SampleJettyApplicationTests.class
